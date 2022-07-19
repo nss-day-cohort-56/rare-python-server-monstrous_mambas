@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.tag_requests import get_all_tags
+from views.tag_requests import create_tag, get_all_tags
 
 from views.user import create_user, login_user
 from views import get_all_categories, get_single_category
@@ -81,12 +81,14 @@ class HandleRequests(BaseHTTPRequestHandler):
         content_len = int(self.headers.get('content-length', 0))
         post_body = json.loads(self.rfile.read(content_len))
         response = ''
-        resource, _ = self.parse_url()
+        (resource, id) = self.parse_url(self.path)
 
         if resource == 'login':
             response = login_user(post_body)
         if resource == 'register':
             response = create_user(post_body)
+        if resource == "tags":
+            response = create_tag(post_body)
 
         self.wfile.write(response.encode())
 
