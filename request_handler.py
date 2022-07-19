@@ -1,5 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from views.post_request import get_all_post, get_single_post
+from views.tag_requests import get_all_tags
 
 from views.user import create_user, login_user
 from views import get_all_categories, get_single_category
@@ -8,7 +10,7 @@ from views import get_all_categories, get_single_category
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
-    def parse_url(self):
+    def parse_url(self, path):
         """Parse the url into the resource and id"""
         path_params = self.path.split('/')
         resource = path_params[1]
@@ -45,9 +47,9 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods',
-                         'GET, POST, PUT, DELETE')
+                        'GET, POST, PUT, DELETE')
         self.send_header('Access-Control-Allow-Headers',
-                         'X-Requested-With, Content-Type, Accept')
+                        'X-Requested-With, Content-Type, Accept')
         self.end_headers()
 
     def do_GET(self):
@@ -56,8 +58,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         response = {}
 
-        # Parse URL and store entire tuple in a variable
-        parsed = self.parse_url()
+        parsed = self.parse_url(self.path)
+
 
         # If the path does not include a query parameter, continue with the original if block
         if '?' not in self.path:
@@ -68,6 +70,13 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = f"{get_single_category(id)}"
             else:
                 response = f"{get_all_categories()}"
+        elif resource == "tags": 
+                response = f"{get_all_tags()}"
+        elif resource == "posts":
+                if id is not None:
+                    response = f"{get_single_post(id)}"
+                else:
+                    response = f"{get_all_post()}"
 
         self.wfile.write(response.encode())
 
