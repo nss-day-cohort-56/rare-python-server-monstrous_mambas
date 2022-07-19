@@ -38,7 +38,7 @@ CREATE TABLE "Posts" (
   "publication_date" date,
   "image_url" varchar,
   "content" varchar,
-  "approved" bit, 
+  "approved" bit,
   FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`)
 );
 
