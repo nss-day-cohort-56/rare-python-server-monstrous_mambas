@@ -1,4 +1,4 @@
-CREATE TABLE "Users" (
+ CREATE TABLE "Users" (
   "id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "first_name" varchar,
   "last_name" varchar,
@@ -11,14 +11,15 @@ CREATE TABLE "Users" (
   "active" bit
 );
 
-CREATE TABLE "DemotionQueue" (
-  "action" varchar,
-  "admin_id" INTEGER,
-  "approver_one_id" INTEGER,
-  FOREIGN KEY(`admin_id`) REFERENCES `Users`(`id`),
-  FOREIGN KEY(`approver_one_id`) REFERENCES `Users`(`id`),
-  PRIMARY KEY (action, admin_id, approver_one_id)
-);
+-- no relivant relation to work this can be removed
+-- CREATE TABLE "DemotionQueue" (
+--   "action" varchar,
+--   "admin_id" INTEGER,
+--   "approver_one_id" INTEGER,
+--   FOREIGN KEY(`admin_id`) REFERENCES `Users`(`id`),
+--   FOREIGN KEY(`approver_one_id`) REFERENCES `Users`(`id`),
+--   PRIMARY KEY (action, admin_id, approver_one_id)
+-- );
 
 
 CREATE TABLE "Subscriptions" (
@@ -39,7 +40,7 @@ CREATE TABLE "Posts" (
   "image_url" varchar,
   "content" varchar,
   "approved" bit,
-  FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`),
+  FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`)
 );
 
 CREATE TABLE "Comments" (

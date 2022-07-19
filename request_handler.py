@@ -51,6 +51,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
         """Handle Get requests to the server"""
+
+        #  get all users and single users
         pass
 
 
