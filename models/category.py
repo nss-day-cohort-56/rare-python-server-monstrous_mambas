@@ -1,0 +1,9 @@
+class Category():
+    """Initialize a new category class w/ 2 parameters"""
+    # Class initializer. It has 2 custom parameters, with the
+    # special `self` parameter that every method on a class
+    # needs as the first parameter.
+    def __init__(self, id, label):
+        self.id = id
+        self.label = label
+        
