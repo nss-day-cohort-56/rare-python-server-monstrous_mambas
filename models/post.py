@@ -2,6 +2,7 @@
 
 
 class Post():
+    """Initialize a new post class w/ 8 parameters"""
     def __init__(self, id, title, user_id, category_id, publication_date, img_url, content, approved):
         self.id = id
         self.user_id = user_id
