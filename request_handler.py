@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from views.tag_requests import get_all_tags
 
 from views.user import create_user, login_user
 
@@ -7,7 +8,7 @@ from views.user import create_user, login_user
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
-    def parse_url(self):
+    def parse_url(self, path):
         """Parse the url into the resource and id"""
         path_params = self.path.split('/')
         resource = path_params[1]
@@ -44,14 +45,27 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods',
-                         'GET, POST, PUT, DELETE')
+                        'GET, POST, PUT, DELETE')
         self.send_header('Access-Control-Allow-Headers',
-                         'X-Requested-With, Content-Type, Accept')
+                        'X-Requested-With, Content-Type, Accept')
         self.end_headers()
 
     def do_GET(self):
         """Handle Get requests to the server"""
-        pass
+        self._set_headers(200)
+
+        response = {}
+
+        parsed = self.parse_url(self.path)
+
+        if '?' not in self.path:
+            (resource, id) = parsed
+
+            if resource == "tags": 
+                response = f"{get_all_tags()}"
+        
+
+        self.wfile.write(f'{response}'.encode())
 
 
     def do_POST(self):
