@@ -93,3 +93,18 @@ INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.c
 INSERT INTO Tags ('label') VALUES ('SQL');
 INSERT INTO Tags ('label') VALUES ('Python');
 INSERT INTO Posts ('user_id', 'category_id', 'title', 'publication_date', 'image_url', 'content', 'approved') VALUES (1, 2, 'group project', '2022-07-12', 'https://pngtree.com/so/happy', 'everyone did one pull request', 1);
+SELECT
+        p.id,
+        p.user_id,
+        p.category_id,
+        p.title,
+        p.publication_date,
+        p.image_url,
+        p.content,
+        p.approved
+
+        FROM Posts p
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id

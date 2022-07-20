@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from unicodedata import category
+
 from models.category import Category
 
 from models.post import Post
