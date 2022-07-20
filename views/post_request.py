@@ -1,5 +1,7 @@
 import sqlite3
 import json
+from unicodedata import category
+from models.category import Category
 
 from models.post import Post
 
@@ -16,16 +18,22 @@ def get_all_post():
         # Write the SQL query to get the information you want
         db_cursor.execute("""
         SELECT
-        id,
-        user_id,
-        category_id,
-        title,
-        publication_date,
-        image_url,
-        content,
-        approved
+        p.id,
+        p.user_id,
+        p.category_id,
+        p.title,
+        p.publication_date,
+        p.image_url,
+        p.content,
+        p.approved,
+        u.name,
+        c.label
 
-        FROM Posts 
+        FROM Posts p
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id
         """)
 
         # Initialize an empty list to hold all animal representations
@@ -37,13 +45,19 @@ def get_all_post():
         # Iterate list of data returned from database
         for row in dataset:
 
-            # Create an animal instance from the current row
+            # Create a post user and category instance from the current row
           
             post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
                             row['publication_date'], row['image_url'], row['content'], row['approved'])
-    # Create a Location instance from the current row
+            category = Category(row['id'], row['label'])
 
-    # Add the dictionary representation of the location to the animal
+            user = User(row['id']. row['name'])
+
+
+            post.category =  category.__dict__
+
+            post.user = user.__dict__
+
           
     # Add the dictionary representation of the animal to the list
             posts.append(post.__dict__)
