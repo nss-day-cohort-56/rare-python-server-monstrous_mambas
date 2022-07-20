@@ -89,7 +89,7 @@ INSERT INTO `Users` VALUES (null, "Connor", "Lopshire", "conrocks@gmail.com", "I
 INSERT INTO `Users` VALUES (null, "Claire", "Morgan-Sanders", "morgrocks@gmail.com", "I am a code genious", "morg", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I am a goof", "tia", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 
-INSERT INTO Posts ('user_id', 'category_id', 'title', 'publication_date', 'image_url', 'content', 'approved') VALUES (1, 2, 'group project', '2022-07-12', 'https://pngtree.com/so/happy', 'everyone did one pull request', 1);
+INSERT INTO `Posts` VALUES ( null, 2, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
 
 SELECT
         p.id,

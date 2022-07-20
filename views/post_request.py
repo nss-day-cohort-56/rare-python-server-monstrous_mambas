@@ -103,3 +103,15 @@ def get_single_post(id):
 
         return json.dumps(category.__dict__)
         
+        
+def delete_post(id):
+    """delete a post
+    """
+
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM Posts
+        WHERE id = ?
+        """, (id, ))
