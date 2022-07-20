@@ -88,3 +88,29 @@ INSERT INTO `Users` VALUES (null, "Camille", "Faulkner", "camrocks@gmail.com", "
 INSERT INTO `Users` VALUES (null, "Connor", "Lopshire", "conrocks@gmail.com", "I am an organizer", "con", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 INSERT INTO `Users` VALUES (null, "Claire", "Morgan-Sanders", "morgrocks@gmail.com", "I am a code genious", "morg", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I am a goof", "tia", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+SELECT
+        p.id,
+        p.user_id,
+        p.category_id,
+        p.title,
+        p.publication_date,
+        p.image_url,
+        p.content,
+        p.approved,
+        c.label,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.bio,
+        u.username,
+        u.password,
+        u.profile_image_url,
+        u.created_on,
+        u.active
+
+        FROM Posts p
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id
+INSERT INTO Categories ('label') VALUES ('Code');
