@@ -84,14 +84,14 @@ def get_all_users():
         db_cursor.execute("""
         SELECT
             u.id,
-            u.first_name
-            u.last_name
-            u.email
-            u.bio
-            u.usernmame
-            u.password
-            u.profile_image_url
-            u.created_on
+            u.first_name,
+            u.last_name,
+            u.email,
+            u.bio,
+            u.username,
+            u.password,
+            u.profile_image_url,
+            u.created_on,
             u.active
         FROM Users u
         """)
@@ -102,7 +102,7 @@ def get_all_users():
 
         for row in dataset: # we are fetching more than one b/c get all
 
-            user = User(row['id'], row['first_name'], ['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['label'], row['created_on'], row['active'])
+            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
 
             users.append(user.__dict__)
 
