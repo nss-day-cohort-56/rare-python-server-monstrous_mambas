@@ -55,7 +55,6 @@ def get_all_post():
         for row in dataset:
 
             # Create a post user and category instance from the current row
-          
             post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
                             row['publication_date'], row['image_url'], row['content'], row['approved'])
             category = Category(row['id'], row['label'])
@@ -67,7 +66,6 @@ def get_all_post():
 
             post.user = user.__dict__
 
-          
     # Add the dictionary representation of the animal to the list
             posts.append(post.__dict__)
 
@@ -91,8 +89,23 @@ def get_single_post(id):
         p.publication_date,
         p.image_url,
         p.content,
-        p.approved
+        p.approved,
+        c.label,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.bio,
+        u.username,
+        u.password,
+        u.profile_image_url,
+        u.created_on,
+        u.active
+
         FROM Posts p
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id
         WHERE p.id = ?
         """, ( id, ))
 
@@ -100,8 +113,13 @@ def get_single_post(id):
         data = db_cursor.fetchone()
 
         # Create an category instance from the current row
-        category = Post(data['id'], data['user_id'], data['category_id'], data['title'],
+        post = Post(data['id'], data['user_id'], data['category_id'], data['title'],
                             data['publication_date'], data['image_url'], data['content'], data['approved'])
+        category = Category(data['id'], data['label'])
+        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'], data['password'], data['profile_image_url'], data['created_on'], data['active'])
+        post.category = category.__dict__
+        post.user = user.__dict__
 
-        return json.dumps(category.__dict__)
+
+        return json.dumps(post.__dict__)
         
