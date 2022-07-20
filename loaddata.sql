@@ -1,4 +1,4 @@
- CREATE TABLE "Users" (
+CREATE TABLE "Users" (
   "id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "first_name" varchar,
   "last_name" varchar,
@@ -10,17 +10,6 @@
   "created_on" date,
   "active" bit
 );
-
--- no relivant relation to work this can be removed
--- CREATE TABLE "DemotionQueue" (
---   "action" varchar,
---   "admin_id" INTEGER,
---   "approver_one_id" INTEGER,
---   FOREIGN KEY(`admin_id`) REFERENCES `Users`(`id`),
---   FOREIGN KEY(`approver_one_id`) REFERENCES `Users`(`id`),
---   PRIMARY KEY (action, admin_id, approver_one_id)
--- );
-
 
 CREATE TABLE "Subscriptions" (
   "id" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -89,3 +78,13 @@ CREATE TABLE "Categories" (
 INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
+
+
+INSERT INTO Tags ('label') VALUES ('SQL');
+INSERT INTO Tags ('label') VALUES ('Python');
+
+INSERT INTO `Users` VALUES (null, "Syndney", "Dickson", "sydrocks@gmail.com", "I am a rockstar", "syd", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Camille", "Faulkner", "camrocks@gmail.com", "I am a powerhouse", "cam", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Connor", "Lopshire", "conrocks@gmail.com", "I am an organizer", "con", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Claire", "Morgan-Sanders", "morgrocks@gmail.com", "I am a code genious", "morg", "password", "", "Wed Sep 15 2021 10:14:05 ");
+INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I am a goof", "tia", "password", "", "Wed Sep 15 2021 10:14:05 ");
