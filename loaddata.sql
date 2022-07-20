@@ -114,3 +114,5 @@ SELECT
         JOIN Categories c
             ON c.id = p.category_id
 INSERT INTO Categories ('label') VALUES ('Code');
+
+INSERT INTO Posts ('user_id', 'category_id', 'title', 'publication_date', 'image_url', 'content', 'approved') VALUES (1, 2, 'group project', '2022-07-12', 'https://pngtree.com/so/happy', 'everyone did one pull request', 1);

@@ -55,7 +55,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle Get requests to the server"""
 
         #  get all users and single users
-        pass
         self._set_headers(200)
 
         response = {}
