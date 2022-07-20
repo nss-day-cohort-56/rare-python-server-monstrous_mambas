@@ -76,10 +76,20 @@ def create_category(new_category):
             ( label )
         VALUES
             ( ? );
-        """, (new_category['label']))
+        """, (new_category['label'],))
 
         id = db_cursor.lastrowid
 
         new_category['id'] = id
 
     return json.dumps(new_category)
+
+def delete_category(id):
+    """Delete category"""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM Categories
+        WHERE id = ?
+        """, (id, ))

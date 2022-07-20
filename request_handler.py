@@ -3,7 +3,7 @@ import json
 from views.post_request import get_all_post, get_single_post
 from views.tag_requests import get_all_tags
 from views.user_requests import create_user, login_user
-from views import get_all_categories, get_single_category, get_all_users, create_category
+from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -108,7 +108,18 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         """Handle DELETE Requests"""
-        pass
+         # Set a 204 response code
+        self._set_headers(204)
+
+        # Parse the URL
+        (resource, id) = self.parse_url(self.path)
+
+        # Delete a single entry from the list
+        if resource == "categories":
+            delete_category(id)
+
+        # Encode the new entry and send in response
+        self.wfile.write("".encode())
 
 
 def main():
