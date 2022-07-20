@@ -11,16 +11,6 @@ CREATE TABLE "Users" (
   "active" bit
 );
 
-CREATE TABLE "DemotionQueue" (
-  "action" varchar,
-  "admin_id" INTEGER,
-  "approver_one_id" INTEGER,
-  FOREIGN KEY(`admin_id`) REFERENCES `Users`(`id`),
-  FOREIGN KEY(`approver_one_id`) REFERENCES `Users`(`id`),
-  PRIMARY KEY (action, admin_id, approver_one_id)
-);
-
-
 CREATE TABLE "Subscriptions" (
   "id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "follower_id" INTEGER,
@@ -92,7 +82,12 @@ INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.c
 
 INSERT INTO Tags ('label') VALUES ('SQL');
 INSERT INTO Tags ('label') VALUES ('Python');
-INSERT INTO Posts ('user_id', 'category_id', 'title', 'publication_date', 'image_url', 'content', 'approved') VALUES (1, 2, 'group project', '2022-07-12', 'https://pngtree.com/so/happy', 'everyone did one pull request', 1);
+
+INSERT INTO `Users` VALUES (null, "Syndney", "Dickson", "sydrocks@gmail.com", "I am a rockstar", "syd", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Camille", "Faulkner", "camrocks@gmail.com", "I am a powerhouse", "cam", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Connor", "Lopshire", "conrocks@gmail.com", "I am an organizer", "con", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Claire", "Morgan-Sanders", "morgrocks@gmail.com", "I am a code genious", "morg", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
+INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I am a goof", "tia", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 SELECT
         p.id,
         p.user_id,
@@ -101,10 +96,21 @@ SELECT
         p.publication_date,
         p.image_url,
         p.content,
-        p.approved
+        p.approved,
+        c.label,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.bio,
+        u.username,
+        u.password,
+        u.profile_image_url,
+        u.created_on,
+        u.active
 
         FROM Posts p
         JOIN Users u
             ON u.id = p.user_id
         JOIN Categories c
             ON c.id = p.category_id
+INSERT INTO Categories ('label') VALUES ('Code');

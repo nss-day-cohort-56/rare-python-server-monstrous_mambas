@@ -4,6 +4,7 @@ import json
 from models.category import Category
 
 from models.post import Post
+from models.user import User
 
 
 def get_all_post():
@@ -26,8 +27,16 @@ def get_all_post():
         p.image_url,
         p.content,
         p.approved,
-        u.name,
-        c.label
+        c.label,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.bio,
+        u.username,
+        u.password,
+        u.profile_image_url,
+        u.created_on,
+        u.active
 
         FROM Posts p
         JOIN Users u
@@ -51,7 +60,7 @@ def get_all_post():
                             row['publication_date'], row['image_url'], row['content'], row['approved'])
             category = Category(row['id'], row['label'])
 
-            user = User(row['id']. row['name'])
+            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
 
 
             post.category =  category.__dict__
