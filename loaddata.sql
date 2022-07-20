@@ -80,6 +80,9 @@ INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
 
+INSERT INTO Categories ('label') VALUES ('Code');
+
+INSERT INTO Posts ('user_id', 'category_id', 'title', 'publication_date', 'image_url', 'content', 'approved') VALUES (1, 2, 'group project', '2022-07-12', 'https://pngtree.com/so/happy', 'everyone did one pull request', 1);
 
 INSERT INTO Tags ('label') VALUES ('SQL');
 INSERT INTO Tags ('label') VALUES ('Python');
