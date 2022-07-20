@@ -142,4 +142,3 @@ def create_new_post(new_post):
         new_post['id'] = id
 
     return json.dumps(new_post)
-
