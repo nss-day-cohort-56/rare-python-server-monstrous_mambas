@@ -1,9 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.tag_requests import get_all_tags
-
-from views.user import create_user, login_user
-from views import get_all_categories, get_single_category
+from views.user_requests import create_user, login_user
+from views import get_all_categories, get_single_category, get_all_users
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -53,6 +52,9 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
         """Handle Get requests to the server"""
+
+        #  get all users and single users
+        pass
         self._set_headers(200)
 
         response = {}
@@ -71,6 +73,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = f"{get_all_categories()}"
         elif resource == "tags": 
                 response = f"{get_all_tags()}"
+        elif resource == "users": 
+                response = f"{get_all_users()}"
 
         self.wfile.write(response.encode())
 
@@ -81,7 +85,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         content_len = int(self.headers.get('content-length', 0))
         post_body = json.loads(self.rfile.read(content_len))
         response = ''
-        resource, _ = self.parse_url()
+        (resource, id) = self.parse_url(self.path)
 
         if resource == 'login':
             response = login_user(post_body)
