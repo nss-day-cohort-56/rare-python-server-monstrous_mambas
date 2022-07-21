@@ -1,8 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.tag_requests import create_tag, get_all_tags
-from views.post_request import get_all_post, get_single_post, create_new_post
-from views.tag_requests import get_all_tags
+from views.post_request import delete_post, get_all_post, get_single_post, create_new_post
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category
 from views.user_requests import create_user, login_user, get_single_user
 
@@ -56,7 +55,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Handle Get requests to the server"""
 
         #  get all users and single users
-        pass
         self._set_headers(200)
 
         response = {}
@@ -116,7 +114,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         """Handle DELETE Requests"""
-         # Set a 204 response code
+
+        # Set a 204 response code
         self._set_headers(204)
 
         # Parse the URL
@@ -125,6 +124,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Delete a single entry from the list
         if resource == "categories":
             delete_category(id)
+        elif resource == "posts":
+            delete_post(id)
 
         # Encode the new entry and send in response
         self.wfile.write("".encode())

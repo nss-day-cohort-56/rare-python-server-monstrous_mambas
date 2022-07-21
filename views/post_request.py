@@ -27,16 +27,18 @@ def get_all_post():
         p.image_url,
         p.content,
         p.approved,
-        c.label,
-        u.first_name,
-        u.last_name,
-        u.email,
-        u.bio,
-        u.username,
-        u.password,
-        u.profile_image_url,
-        u.created_on,
-        u.active
+        c.id category_id,
+        c.label category_label,
+        u.id user_id,
+        u.first_name user_first_name,
+        u.last_name user_last_name,
+        u.email user_email,
+        u.bio user_bio,
+        u.username user_username,
+        u.password user_password,
+        u.profile_image_url user_profile_image_url,
+        u.created_on user_created_on,
+        u.active user_active
 
         FROM Posts p
         JOIN Users u
@@ -57,19 +59,16 @@ def get_all_post():
             # Create a post user and category instance from the current row
             post = Post(row['id'], row['user_id'], row['category_id'], row['title'],
                             row['publication_date'], row['image_url'], row['content'], row['approved'])
-            category = Category(row['id'], row['label'])
+            category = Category(row['category_id'], row['category_label'])
 
-            user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
+            user = User(row['user_id'], row['user_first_name'], row['user_last_name'], row['user_email'], row['user_bio'], row['user_username'], row['user_password'], row['user_profile_image_url'], row['user_created_on'], row['user_active'])
 
 
             post.category =  category.__dict__
 
             post.user = user.__dict__
 
-    # Add the dictionary representation of the animal to the list
             posts.append(post.__dict__)
-
-    # Use `json` package to properly serialize list as JSON
     return json.dumps(posts)
 
 def get_single_post(id):
@@ -122,10 +121,21 @@ def get_single_post(id):
 
         return json.dumps(category.__dict__)
         
+        
+def delete_post(id):
+    """delete a post
+    """
+
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM Posts
+        WHERE id = ?
+        """, (id, ))
+
 def create_new_post(new_post):
-    """
-    
-    """
+
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
