@@ -119,7 +119,7 @@ def get_single_post(id):
         post.category = category.__dict__
         post.user = user.__dict__
 
-        return json.dumps(category.__dict__)
+        return json.dumps(post.__dict__)
 
 def get_posts_by_user_id(id):
     """Get posts by user_id"""
