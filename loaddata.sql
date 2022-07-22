@@ -123,4 +123,4 @@ SELECT
             
 INSERT INTO Categories ('label') VALUES ('Code');
 
-INSERT INTO Posts ('user_id', 'category_id', 'title', 'publication_date', 'image_url', 'content', 'approved') VALUES (1, 2, 'group project', '2022-07-12', 'https://pngtree.com/so/happy', 'everyone did one pull request', 1);
+INSERT INTO `Posts` VALUES ( null, 5, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
