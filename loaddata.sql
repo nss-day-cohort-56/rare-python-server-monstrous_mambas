@@ -132,7 +132,3 @@ SELECT
 	    c.content
     FROM Comments c
     Where post_id = 1
-
-
-INSERT INTO Comments VALUES (null, 1, 1, "I'm commenting")
-INSERT INTO Comments VALUES (null, 1, 1, "I'm commenting")
