@@ -89,16 +89,18 @@ def get_single_post(id):
         p.image_url,
         p.content,
         p.approved,
-        c.label,
-        u.first_name,
-        u.last_name,
-        u.email,
-        u.bio,
-        u.username,
-        u.password,
-        u.profile_image_url,
-        u.created_on,
-        u.active
+        c.id category_id,
+        c.label category_label,
+        u.id user_id,
+        u.first_name user_first_name,
+        u.last_name user_last_name,
+        u.email user_email,
+        u.bio user_bio,
+        u.username user_username,
+        u.password user_password,
+        u.profile_image_url user_profile_image_url,
+        u.created_on user_created_on,
+        u.active user_active
 
         FROM Posts p
         JOIN Users u
@@ -114,8 +116,8 @@ def get_single_post(id):
         # Create an category instance from the current row
         post = Post(data['id'], data['user_id'], data['category_id'], data['title'],
                             data['publication_date'], data['image_url'], data['content'], data['approved'])
-        category = Category(data['id'], data['label'])
-        user = User(data['id'], data['first_name'], data['last_name'], data['email'], data['bio'], data['username'], data['password'], data['profile_image_url'], data['created_on'], data['active'])
+        category = Category(data['category_id'], data['category_label'])
+        user = User(data['user_id'], data['user_first_name'], data['user_last_name'], data['user_email'], data['user_bio'], data['user_username'], data['user_password'], data['user_profile_image_url'], data['user_created_on'], data['user_active'])
         post.category = category.__dict__
         post.user = user.__dict__
 
@@ -176,10 +178,42 @@ def create_new_post(new_post):
         VALUES
             ( ?, ?, ?, ?, ?, ?, ? );
         """, (new_post['user_id'], new_post['category_id'],
-            new_post['title'], new_post['publication_date'], new_post['image_url'], new_post['content'], new_post['approved'])) 
+            new_post['title'], new_post['publication_date'], new_post['image_url'], new_post['content'], new_post['approved']))
 
         id = db_cursor.lastrowid
 
         new_post['id'] = id
 
     return json.dumps(new_post)
+
+def edit_post(id, new_post):
+    """
+    whats happening here?
+    """
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE Posts
+            SET
+                user_id = ?,
+                category_id = ?,
+                title = ?,
+                publication_date = ?,
+                image_url = ?,
+                content = ?,
+                approved = ?
+        WHERE id = ?
+        """, (new_post['user_id'], new_post['category_id'], new_post['title'], new_post['publication_date'],
+            new_post['image_url'], new_post['content'], new_post['approved'], id, ))
+
+        # Were any rows affected?
+        # Did the client send an `id` that exists?
+        rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        # Forces 404 response by main module
+        return False
+    else:
+        # Forces 204 response by main module
+        return True
