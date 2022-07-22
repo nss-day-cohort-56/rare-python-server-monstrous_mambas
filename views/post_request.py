@@ -122,6 +122,37 @@ def get_single_post(id):
         post.user = user.__dict__
 
         return json.dumps(post.__dict__)
+
+def get_posts_by_user_id(id):
+    """Get posts by user_id"""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved
+
+        FROM Posts p
+        WHERE p.user_id = ?
+        """, ( id, ))
+
+        posts = []
+        dataset = db_cursor.fetchall()
+
+        for data in dataset:
+            post = Post(data['id'], data['user_id'], data['category_id'], data['title'],
+                            data['publication_date'], data['image_url'], data['content'], data['approved'])
+            posts.append(post.__dict__)
+
+    return json.dumps(posts)
         
         
 def delete_post(id):
