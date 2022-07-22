@@ -82,11 +82,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                         response = f"{get_single_user(id)}"
                     else:
                         response = f"{get_all_users()}"
-            # elif resource == "comments":
-            #         if id is not None:
-            #             response = f"{get_all_comments_by_id(id)}" #/comments?post_id=1
-            #         else:
-            #             ""
+
         else:
             ( resource, query, id ) = parsed
 
