@@ -82,11 +82,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                         response = f"{get_single_user(id)}"
                     else:
                         response = f"{get_all_users()}"
-            elif resource == "comments":
-                    if id is not None:
-                        response = f"{get_all_comments_by_id(id)}"
-                    else:
-                        ""
+
         else:
             ( resource, query, id ) = parsed
 
@@ -95,6 +91,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             if query == 'category_id' and resource == 'posts':
                 response = get_posts_by_category(id)
 
+            elif query == 'post_id' and resource == 'comments':
+                response = get_all_comments_by_id(id)
 
         self.wfile.write(response.encode())
 

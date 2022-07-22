@@ -96,7 +96,7 @@ INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I 
 
 INSERT INTO `Posts` VALUES ( null, 2, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
 
-INSERT INTO `Comments` VALUES ( null, 1, 4, 'testing');
+INSERT INTO `Comments` VALUES ( null, 1, 1, 'testing');
 
 SELECT
         p.id,
