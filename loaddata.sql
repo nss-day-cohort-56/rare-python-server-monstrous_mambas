@@ -132,3 +132,5 @@ SELECT
 	    c.content
     FROM Comments c
     Where post_id = 1
+
+INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
