@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.tag_requests import create_tag, get_all_tags
-from views.post_request import delete_post, get_all_post, get_single_post, create_new_post
+from views.post_request import delete_post, get_all_post, get_single_post, create_new_post, get_posts_by_user_id
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category
 from views.user_requests import create_user, login_user, get_single_user
 
@@ -51,38 +51,42 @@ class HandleRequests(BaseHTTPRequestHandler):
                         'X-Requested-With, Content-Type, Accept')
         self.end_headers()
 
+
     def do_GET(self):
         """Handle Get requests to the server"""
 
-        #  get all users and single users
         self._set_headers(200)
 
         response = {}
 
         parsed = self.parse_url(self.path)
 
-
-        # If the path does not include a query parameter, continue with the original if block
         if '?' not in self.path:
             ( resource, id ) = parsed
 
-        if resource == "categories":
-            if id is not None:
-                response = f"{get_single_category(id)}"
-            else:
-                response = f"{get_all_categories()}"
-        elif resource == "tags": 
-                response = f"{get_all_tags()}"
-        elif resource == "posts":
+            if resource == "categories":
                 if id is not None:
-                    response = f"{get_single_post(id)}"
+                    response = f"{get_single_category(id)}"
                 else:
-                    response = f"{get_all_post()}"
-        elif resource == "users": 
-                if id is not None:
-                    response = f"{get_single_user(id)}"
-                else:
-                    response = f"{get_all_users()}"
+                    response = f"{get_all_categories()}"
+            elif resource == "tags": 
+                    response = f"{get_all_tags()}"
+            elif resource == "posts":
+                    if id is not None:
+                        response = f"{get_single_post(id)}"
+                    else:
+                        response = f"{get_all_post()}"
+            elif resource == "users": 
+                    if id is not None:
+                        response = f"{get_single_user(id)}"
+                    else:
+                        response = f"{get_all_users()}"
+
+        else:
+            ( resource, query, id ) = parsed
+
+            if query == 'user_id' and resource == 'posts':
+                response = get_posts_by_user_id(id)
 
         self.wfile.write(response.encode())
 
