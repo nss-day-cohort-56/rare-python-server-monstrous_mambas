@@ -140,4 +140,3 @@ def get_single_user(id):
         user = User(row['id'], row['first_name'], row['last_name'], row['email'], row['bio'], row['username'], row['password'], row['profile_image_url'], row['created_on'], row['active'])
 
         return json.dumps(user.__dict__)
-        

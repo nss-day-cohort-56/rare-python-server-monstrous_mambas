@@ -134,5 +134,4 @@ SELECT
     Where post_id = 1
 
 
-INSERT INTO Comments VALUES (null, 1, 1, "I'm commenting")
-INSERT INTO Comments VALUES (null, 1, 1, "I'm commenting")
+INSERT INTO `Posts` VALUES ( null, 5, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
