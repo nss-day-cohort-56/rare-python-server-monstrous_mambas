@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.tag_requests import create_tag, get_all_tags
-from views.post_request import delete_post, edit_post, get_all_post, get_single_post, create_new_post, get_posts_by_user_id
+from views.post_request import delete_post, edit_post, get_all_post, get_posts_by_category, get_single_post, create_new_post, get_posts_by_user_id, get_posts_by_category
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category
 from views.user_requests import create_user, login_user, get_single_user
 from views.comment_requests import get_all_comments_by_id
@@ -88,6 +88,9 @@ class HandleRequests(BaseHTTPRequestHandler):
 
             if query == 'user_id' and resource == 'posts':
                 response = get_posts_by_user_id(id)
+            if query == 'category_id' and resource == 'posts':
+                response = get_posts_by_category(id)
+
             elif query == 'post_id' and resource == 'comments':
                 response = get_all_comments_by_id(id)
 
