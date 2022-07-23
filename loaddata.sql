@@ -96,6 +96,8 @@ INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I 
 
 INSERT INTO `Posts` VALUES ( 1, 2, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
 
+INSERT INTO `Comments` VALUES ( null, 1, 1, 'testing');
+
 SELECT
         p.id,
         p.user_id,
@@ -133,5 +135,9 @@ SELECT
     FROM Comments c
     Where post_id = 1
 
+<<<<<<< HEAD
 
 INSERT INTO `Posts` VALUES ( null, 5, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
+=======
+INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
+>>>>>>> 77420894f2a976a8843bcc89a85f93869bdcd23d
