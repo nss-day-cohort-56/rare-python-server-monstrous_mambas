@@ -124,3 +124,16 @@ def edit_posttag(id, new_post):
     else:
         # Forces 204 response by main module
         return True
+
+
+def delete_posttag(id):
+    """delete an entry
+    """
+
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM PostTags
+        WHERE id = ?
+        """, (id, ))
