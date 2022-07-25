@@ -5,6 +5,7 @@ from models.category import Category
 
 from models.post import Post
 from models.user import User
+from models.posttag import PostTag
 
 
 def get_all_post():
@@ -353,3 +354,4 @@ def get_posts_by_title(search):
             posts.append(post.__dict__)
 
     return json.dumps(posts)
+
