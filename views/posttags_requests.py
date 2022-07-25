@@ -137,3 +137,4 @@ def delete_posttag(id):
         DELETE FROM PostTags
         WHERE id = ?
         """, (id, ))
+

@@ -149,3 +149,4 @@ INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtr
         JOIN Posts p
             ON p.id = pt.post_id
         WHERE p.id = 28
+

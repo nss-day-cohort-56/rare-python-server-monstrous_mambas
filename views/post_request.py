@@ -5,7 +5,7 @@ from models.category import Category
 
 from models.post import Post
 from models.user import User
-from models.posttag import PostTag
+
 
 
 def get_all_post():

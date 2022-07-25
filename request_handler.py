@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views.posttags_requests import create_posttag, delete_posttag, edit_posttag, get_all_posttags, get_all_tags_for_post
 from views.tag_requests import create_tag, get_all_tags
-from views.post_request import delete_post, edit_post, get_all_post, get_posts_by_category, get_single_post, create_new_post, get_posts_by_user_id, get_posts_by_category
+from views.post_request import delete_post, edit_post, get_all_post, get_posts_by_category, get_posts_by_tag_id, get_single_post, create_new_post, get_posts_by_user_id, get_posts_by_category
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category, get_posts_by_title
 from views.user_requests import create_user, login_user, get_single_user
 from views.comment_requests import create_new_comment, get_all_comments_by_id
@@ -99,6 +99,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_all_tags_for_post(id)
             elif query == 'title' and resource == 'posts':
                 response = get_posts_by_title(id)
+            
 
         self.wfile.write(response.encode())
 
