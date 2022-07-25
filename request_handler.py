@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from views.posttags_requests import create_posttag, get_all_posttags, get_all_tags_for_post
 from views.tag_requests import create_tag, get_all_tags
 from views.post_request import delete_post, edit_post, get_all_post, get_posts_by_category, get_single_post, create_new_post, get_posts_by_user_id, get_posts_by_category
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category
@@ -82,17 +83,20 @@ class HandleRequests(BaseHTTPRequestHandler):
                         response = f"{get_single_user(id)}"
                     else:
                         response = f"{get_all_users()}"
+            elif resource == "posttags": 
+                    response = f"{get_all_posttags()}"
 
         else:
             ( resource, query, id ) = parsed
 
             if query == 'user_id' and resource == 'posts':
                 response = get_posts_by_user_id(id)
-            if query == 'category_id' and resource == 'posts':
+            elif query == 'category_id' and resource == 'posts':
                 response = get_posts_by_category(id)
-
             elif query == 'post_id' and resource == 'comments':
                 response = get_all_comments_by_id(id)
+            elif query == 'post_id' and resource == 'posttags':
+                response = get_all_tags_for_post(id)
 
         self.wfile.write(response.encode())
 
@@ -115,6 +119,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_tag(post_body)
         if resource == "posts":
             response = create_new_post(post_body)
+        if resource == "posttags":
+            response = create_posttag(post_body)
 
         self.wfile.write(response.encode())
 
