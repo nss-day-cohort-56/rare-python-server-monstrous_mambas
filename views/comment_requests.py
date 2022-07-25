@@ -40,10 +40,10 @@ def get_all_comments_by_id(id):
     # Use `json` package to properly serialize list as JSON
     return json.dumps(comments)
 
+
 def delete_comment(id):
     """delete a comment
     """
-
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
@@ -51,3 +51,23 @@ def delete_comment(id):
         DELETE FROM Comments
         WHERE id = ?
         """, (id, ))
+
+
+def create_new_comment(new_comment):
+
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        INSERT INTO Comments
+            ( post_id, author_id, content )
+        VALUES
+            ( ?, ?, ? );
+        """, (new_comment['post_id'], new_comment['author_id'],
+            new_comment['content'] ))
+
+        id = db_cursor.lastrowid
+
+        new_comment['id'] = id
+
+    return json.dumps(new_comment)
