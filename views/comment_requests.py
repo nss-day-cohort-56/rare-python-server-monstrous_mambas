@@ -41,6 +41,17 @@ def get_all_comments_by_id(id):
     return json.dumps(comments)
 
 
+def delete_comment(id):
+    """delete a comment
+    """
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+        db_cursor.execute("""
+        DELETE FROM Comments
+        WHERE id = ?
+        """, (id, ))
+
+
 def create_new_comment(new_comment):
 
     with sqlite3.connect("./db.sqlite3") as conn:

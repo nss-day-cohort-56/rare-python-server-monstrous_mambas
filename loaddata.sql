@@ -127,6 +127,10 @@ SELECT
             
 INSERT INTO Categories ('label') VALUES ('Code');
 INSERT INTO `Posts` VALUES ( null, 1, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
+INSERT INTO `Comments` VALUES (null, 2, 1, 'here is another comment');
+INSERT INTO `Comments` VALUES (null, 1, 1, 'here is another comment');
+INSERT INTO `Comments` VALUES (null, 2, 2, 'here is another comment');
+
 
 SELECT
       c.id,
