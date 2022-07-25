@@ -100,6 +100,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_all_tags_for_post(id)
             elif query == 'title' and resource == 'posts':
                 response = get_posts_by_title(id)
+            elif query == 'tag_id' and resource == 'posts':
+                response = get_posts_by_tag_id(id)
             
 
         self.wfile.write(response.encode())
