@@ -77,6 +77,7 @@ CREATE TABLE "Categories" (
 );
 
 INSERT INTO Categories ('label') VALUES ('News');
+INSERT INTO PostTags ('post_id', 'tag_id') VALUES (1, 1);
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
 
@@ -139,3 +140,16 @@ SELECT
     FROM Comments c
     Where post_id = 1
 
+INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
+
+        SELECT
+        p.id post_id,
+        t.id tag_id,
+        t.label
+
+        FROM Tags t
+        JOIN PostTags pt
+            ON t.id = pt.tag_id
+        JOIN Posts p
+            ON p.id = pt.post_id
+        WHERE p.id = 28

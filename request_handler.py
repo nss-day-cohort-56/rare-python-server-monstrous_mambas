@@ -1,10 +1,12 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from views.posttags_requests import create_posttag, delete_posttag, edit_posttag, get_all_posttags, get_all_tags_for_post
 from views.tag_requests import create_tag, get_all_tags
 from views.post_request import delete_post, edit_post, get_all_post, get_posts_by_category, get_single_post, create_new_post, get_posts_by_user_id, get_posts_by_category
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category, get_posts_by_title
 from views.user_requests import create_user, login_user, get_single_user
 from views.comment_requests import create_new_comment, get_all_comments_by_id, delete_comment
+from views.comment_requests import delete_comment, get_all_comments_by_id, create_new_comment
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -12,7 +14,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def parse_url(self, path):
         """Parse the url into the resource and id"""
-        path_params = self.path.split('/')
+        path_params = path.split('/')
         resource = path_params[1]
         if '?' in resource:
             param = resource.split('?')[1]
@@ -82,6 +84,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                         response = f"{get_single_user(id)}"
                     else:
                         response = f"{get_all_users()}"
+            elif resource == "posttags": 
+                    response = f"{get_all_posttags()}"
 
         else:
             ( resource, query, id ) = parsed
@@ -92,6 +96,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_posts_by_category(id)
             elif query == 'post_id' and resource == 'comments':
                 response = get_all_comments_by_id(id)
+            elif query == 'post_id' and resource == 'posttags':
+                response = get_all_tags_for_post(id)
             elif query == 'title' and resource == 'posts':
                 response = get_posts_by_title(id)
 
@@ -116,6 +122,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_tag(post_body)
         if resource == "posts":
             response = create_new_post(post_body)
+        if resource == "posttags":
+            response = create_posttag(post_body)
         if resource == "comments":
             response = create_new_comment(post_body)
 
@@ -134,6 +142,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "posts":
             success = edit_post(id, post_body)
+        elif resource == "posttags":
+            success = edit_posttag(id, post_body)
         # rest of the elif's
 
         if success:
@@ -160,6 +170,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_post(id)
         elif resource == "comments":
             delete_comment(id)
+        elif resource == "posttags":
+            delete_posttag(id)
 
         # Encode the new entry and send in response
         self.wfile.write("".encode())
