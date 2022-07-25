@@ -97,3 +97,30 @@ def get_all_tags_for_post(id):
 
 
     return json.dumps(posttags)
+
+
+def edit_posttag(id, new_post):
+    """
+    whats happening here?
+    """
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE Posts
+            SET
+                post_id = ?,
+                tag_id = ?
+        WHERE id = ?
+        """, (new_post['post_id'], new_post['tag_id'], id, ))
+
+        # Were any rows affected?
+        # Did the client send an `id` that exists?
+        rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        # Forces 404 response by main module
+        return False
+    else:
+        # Forces 204 response by main module
+        return True

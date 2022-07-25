@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views.posttags_requests import create_posttag, get_all_posttags, get_all_tags_for_post
+from views.posttags_requests import create_posttag, edit_posttag, get_all_posttags, get_all_tags_for_post
 from views.tag_requests import create_tag, get_all_tags
 from views.post_request import delete_post, edit_post, get_all_post, get_posts_by_category, get_single_post, create_new_post, get_posts_by_user_id, get_posts_by_category
 from views import get_all_categories, get_single_category, get_all_users, create_category, delete_category
@@ -137,6 +137,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "posts":
             success = edit_post(id, post_body)
+        elif resource == "posttags":
+            success = edit_posttag(id, post_body)
         # rest of the elif's
 
         if success:
