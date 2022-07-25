@@ -94,7 +94,7 @@ INSERT INTO `Users` VALUES (null, "Connor", "Lopshire", "conrocks@gmail.com", "I
 INSERT INTO `Users` VALUES (null, "Claire", "Morgan-Sanders", "morgrocks@gmail.com", "I am a code genious", "morg", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 INSERT INTO `Users` VALUES (null, "Tiana", "Robinson", "tiarocks@gmail.com", "I am a goof", "tia", "password", "", "Wed Sep 15 2021 10:14:05 ", 1);
 
-INSERT INTO `Posts` VALUES ( null, 2, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
+INSERT INTO `Posts` VALUES ( 1, 2, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
 
 INSERT INTO `Comments` VALUES ( null, 1, 1, 'testing');
 
@@ -139,4 +139,3 @@ SELECT
     FROM Comments c
     Where post_id = 1
 
-INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);

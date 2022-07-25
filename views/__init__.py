@@ -4,3 +4,4 @@ from .post_request import get_all_post, get_single_post, delete_post, create_new
 from .post_request import get_posts_by_category
 from .user_requests import get_all_users, get_single_user
 from .comment_requests import get_all_comments_by_id, delete_comment
+from .comment_requests import create_new_comment, get_all_comments_by_id
