@@ -153,3 +153,40 @@ INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtr
         JOIN Posts p
             ON p.id = pt.post_id
         WHERE p.id = 28
+
+
+ SELECT
+            
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            pt.id pt_id,
+            pt.tag_id ptag_id,
+	        pt.post_id ppost_id,
+            c.id category_id,
+            c.label category_label,
+            u.id user_id,
+            u.first_name user_first_name,
+            u.last_name user_last_name,
+            u.email user_email,
+            u.bio user_bio,
+            u.username user_username,
+            u.password user_password,
+            u.profile_image_url user_profile_image_url,
+            u.created_on user_created_on,
+            u.active user_active
+
+        FROM Posts p
+        JOIN PostTags pt
+		    ON  pt.post_id = p.id 
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id
+	
+        WHERE pt.tag_id = 1

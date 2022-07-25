@@ -5,6 +5,7 @@ from models.category import Category
 
 from models.post import Post
 from models.user import User
+from models.posttag import PostTag
 
 
 def get_all_post():
@@ -346,6 +347,72 @@ def get_posts_by_title(search):
 
             user = User(data['user_id'], data['user_first_name'], data['user_last_name'], data['user_email'], data['user_bio'], data['user_username'], data['user_password'], data['user_profile_image_url'], data['user_created_on'], data['user_active'])
 
+            post.category =  category.__dict__
+
+            post.user = user.__dict__
+
+            posts.append(post.__dict__)
+
+    return json.dumps(posts)
+
+def get_posts_by_tag_id(tag_id):
+    """Get posts by title"""
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        
+        SELECT
+            
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            pt.id pt_id,
+            pt.tag_id ptag_id,
+	        pt.post_id ppost_id,
+            c.id category_id,
+            c.label category_label,
+            u.id user_id,
+            u.first_name user_first_name,
+            u.last_name user_last_name,
+            u.email user_email,
+            u.bio user_bio,
+            u.username user_username,
+            u.password user_password,
+            u.profile_image_url user_profile_image_url,
+            u.created_on user_created_on,
+            u.active user_active
+
+        FROM Posts p
+        JOIN PostTags pt
+		    ON  pt.post_id = p.id 
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id
+	
+        WHERE pt.tag_id = ?
+        
+        """, ( tag_id, ))
+
+        posts = []
+        dataset = db_cursor.fetchall()
+
+        for data in dataset:
+            post = Post(data['id'], data['user_id'], data['category_id'], data['title'],
+                            data['publication_date'], data['image_url'], data['content'], data['approved'])
+
+            posttag = PostTag(data['pt_id'], data['ppost_id'], data['ptag_id'] )
+            category = Category(data['category_id'], data['category_label'])
+
+            user = User(data['user_id'], data['user_first_name'], data['user_last_name'], data['user_email'], data['user_bio'], data['user_username'], data['user_password'], data['user_profile_image_url'], data['user_created_on'], data['user_active'])
+            post.posttag = posttag.__dict__
             post.category =  category.__dict__
 
             post.user = user.__dict__
