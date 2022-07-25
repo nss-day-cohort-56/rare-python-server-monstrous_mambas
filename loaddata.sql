@@ -134,10 +134,3 @@ SELECT
 	    c.content
     FROM Comments c
     Where post_id = 1
-
-<<<<<<< HEAD
-
-INSERT INTO `Posts` VALUES ( null, 5, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
-=======
-INSERT INTO `Posts` VALUES ( null, 4, 1, 'testing', '2022-07-20', 'https://pngtree.com/so/happy', 'testing', 1);
->>>>>>> 77420894f2a976a8843bcc89a85f93869bdcd23d
