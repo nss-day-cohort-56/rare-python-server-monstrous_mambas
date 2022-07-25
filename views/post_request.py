@@ -138,9 +138,25 @@ def get_posts_by_user_id(id):
             p.publication_date,
             p.image_url,
             p.content,
-            p.approved
+            p.approved,
+            c.id category_id,
+            c.label category_label,
+            u.id user_id,
+            u.first_name user_first_name,
+            u.last_name user_last_name,
+            u.email user_email,
+            u.bio user_bio,
+            u.username user_username,
+            u.password user_password,
+            u.profile_image_url user_profile_image_url,
+            u.created_on user_created_on,
+            u.active user_active
 
         FROM Posts p
+        JOIN Users u
+            ON u.id = p.user_id
+        JOIN Categories c
+            ON c.id = p.category_id
         WHERE p.user_id = ?
         """, ( id, ))
 
@@ -150,10 +166,18 @@ def get_posts_by_user_id(id):
         for data in dataset:
             post = Post(data['id'], data['user_id'], data['category_id'], data['title'],
                             data['publication_date'], data['image_url'], data['content'], data['approved'])
+
+            category = Category(data['category_id'], data['category_label'])
+
+            user = User(data['user_id'], data['user_first_name'], data['user_last_name'], data['user_email'], data['user_bio'], data['user_username'], data['user_password'], data['user_profile_image_url'], data['user_created_on'], data['user_active'])
+
+            post.category =  category.__dict__
+
+            post.user = user.__dict__
+
             posts.append(post.__dict__)
 
     return json.dumps(posts)
-        
         
 def delete_post(id):
     """delete a post
